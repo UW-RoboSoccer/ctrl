@@ -1,0 +1,3 @@
+[submodule "extern/placo"]
+	path = extern/placo
+	url = https://github.com/Rhoban/placo.git
