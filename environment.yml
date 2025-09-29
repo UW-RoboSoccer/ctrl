@@ -4,8 +4,19 @@ channels:
 dependencies:
   - python=3.12
   - cmake
+  - pkg-config
+  - make
+  - ninja
+  - eigen
+  - pinocchio
+  - eigenpy
+  - hpp-fcl
+  - assimp
+  - fmt
+  - pybind11 
+  - boost
+  - numpy=1.26
   - pip
   - pip:
-      - numpy
       - doxystub
       - mujoco

@@ -1,0 +1,38 @@
+urdf: robot/robot_mod.urdf
+package_paths; []
+
+links:
+left_foot: foot_2_sole
+right_foot: foot_sole
+torse_link:
+base_link:
+
+control:
+  dt: 0.005
+  solver_hz: 200
+
+gait:
+  step_time: 0.6
+  double_support: 0.2
+  step_length: 0.18
+  step_width: 0.18
+  swing_clearance: 0.05
+  com_height: 0.32
+  trunk_pitch: 0.15
+  zmp_margin: 0.02
+  startend_double_support_ratio: 1.5
+  planned_steps: 10
+  limits:
+    max_dx_forward: 0.08
+    max_dx_backward: 0.03
+    max_dy: 0.04
+    max_dtheta: 1.0
+
+foot:
+  length: 0.20
+  width: 0.10
+
+mujoco:
+  controller: position
+  kp: 100
+  kd: 2
