@@ -1,35 +1,11 @@
 <?xml version="1.0" ?>
+<!--  193-220 -->
 <!-- Generated using onshape-to-robot -->
 <!-- Onshape https://cad.onshape.com/documents/edea034631796554fe7de906/w/0725cd49d9878c86b643a14d/e/ef4419f73ceb4e549626bf9b -->
 <robot name="C:\Users\David\desktop\v1_urdf">
   <mujoco>
     <compiler meshdir="assets/merged" />
   </mujoco>
-
-  <!-- trunk → torso -->
-  <link name="trunk"/>
-  <joint name="trunk_fixed" type="fixed">
-    <parent link="torso"/>
-    <child  link="trunk"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
-  <!-- base_link→ torso -->
-  <link name="base_link"/>
-  <joint name="base_link_fixed" type="fixed">
-    <parent link="torso"/>
-    <child  link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
-  <!-- pelvis→ pitch_roll_housing -->
-  <link name="pelvis"/>
-  <joint name="pelvis_fixed" type="fixed">
-    <parent link="pitch_roll_housing"/>
-    <child  link="pelvis"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
   <!-- Link torso -->
   <link name="torso">
     <inertial>
@@ -206,14 +182,6 @@
       <inertia ixx="0.0001" ixy="0"  ixz="0" iyy="0.0001" iyz="0"  izz="0.0001" />
     </inertial>
   </link>
-
-  <link name="right_foot"/>
-  <joint name="right_foot_fixed" type="fixed">
-    <parent link="foot_sole"/>
-    <child  link="right_foot"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
   <!-- Joint from foot_sole to foot -->
   <joint name="right_sole_joint_fixed" type="fixed">
     <origin xyz="0 0.027 -0.0275" rpy="1.57079632679 0 0" />
@@ -222,6 +190,34 @@
     <parent link="foot" />
     <child link="foot_sole" />
   </joint>
+
+  <!-- === 左脚：把 left_foot 绑定到 foot_2_sole 上 === -->
+  <link name="left_foot"/>
+  <joint name="left_foot_fixed" type="fixed">
+    <!-- parent 就是你现有的鞋底帧 -->
+    <parent link="foot_2_sole"/>
+    <child  link="left_foot"/>
+    <!-- 若 foot_2_sole 的原点已经在接触面几何中心，保持 0 0 0；否则在这儿做微调 -->
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- === 右脚：把 right_foot 绑定到 foot_sole 上 === -->
+  <link name="right_foot"/>
+  <joint name="right_foot_fixed" type="fixed">
+    <parent link="foot_sole"/>
+    <child  link="right_foot"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- === 躯干基准帧：trunk，绑定到 torso 上 === -->
+  <link name="trunk"/>
+  <joint name="trunk_fixed" type="fixed">
+    <parent link="torso"/>
+    <child  link="trunk"/>
+    <!-- 如果 torso 原点就是你希望的躯干基准点，这里就 0 0 0；否则做微调 -->
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
   <!-- Joint from sts3250 to foot -->
   <joint name="right_ankle_roll" type="revolute">
     <origin xyz="0.024725 9.04235e-10 -0.018825" rpy="6.12323e-17 1.5708 0"/>
@@ -422,14 +418,6 @@
       <inertia ixx="0.0001" ixy="0"  ixz="0" iyy="0.0001" iyz="0"  izz="0.0001" />
     </inertial>
   </link>
-  <!-- Joint from left_foot to foot_2_sole -->
-  <link name="left_foot"/>
-  <joint name="left_foot_fixed" type="fixed">
-    <parent link="foot_2_sole"/>
-    <child  link="left_foot"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-
   <!-- Joint from foot_2_sole to foot_2 -->
   <joint name="left_sole_joint_fixed" type="fixed">
     <origin xyz="0 0.027 -0.0275" rpy="1.57079632679 0 0" />
